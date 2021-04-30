@@ -10,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require patipark/mydate "*"
+php composer.phar require patipark/mydate "dev-master"
 ```
 
 or add
 
 ```
-"patipark/mydate": "*"
+"patipark/mydate": "dev-master"
 ```
 
 to the require section of your `composer.json` file.
@@ -27,15 +27,20 @@ Usage
 
 - on view 
 ```php
+
 use patipark\MyDate;
 
 if(MyDate::isValidDate('2021-04-30'))
 {
     // รูปแบบวันที่ถูกต้อง
+    .......
+    .......
 }
 else
 {
     // รูปแบบวันที่ไม่ถูกต้อง
+    .......
+    .......
 }
 echo MyDate::lastDateOfMonth(2021,2);
 echo MyDate::listMonth()[4];
