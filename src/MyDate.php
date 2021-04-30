@@ -71,7 +71,7 @@ class MyDate
      * get array list of day โดยค่า โดยค่าที่เป็นไปได้ 1-วันสุดท้ายของเดือน โดยส่งผ่านค่า ปี กับ เดือนเข้าไป(เพื่อหากวันที่สุดท้ายของเดือนนั้น)
      * @return  array $days
      */
-    public static function listDateOfMonth($year, $month)
+    public static function listDayOfMonth($year, $month)
     {
         $date = self::lastDateOfMonth($year, $month);
         for ($i = 1; $i <= date('d', strtotime($date)); $i++) {
