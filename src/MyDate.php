@@ -2,6 +2,10 @@
 
 namespace patipark;
 
+/**
+ * เป็น class ที่เป็น utility ในการตรวจสอบและแปลงค่าวันที่ 
+ *
+ */
 class MyDate
 {
     // const FORMAT_DATE = 'php:Y-m-d';
@@ -13,6 +17,11 @@ class MyDate
         date_default_timezone_set("Asia/Bangkok");
     }
 
+    /**
+     * Gets timezone ของ php
+     *
+     * @return string timezone
+     */
     public static function TIMEZONE()
     {
         if (date_default_timezone_get()) {
@@ -24,8 +33,11 @@ class MyDate
         return date('e');
     }
 
-
-    public static function isValidDate($dateString)
+    /**
+     * ตรวจสอบข้อมูลวันที่ว่าถูกต้องหรือไม่
+     * @return  boolean isValidDate
+     */
+    public static function isValidDate(String $dateString)
     {
         if (empty($dateString)) {
             return false;
@@ -42,11 +54,15 @@ class MyDate
         return true;
     }
 
+    /**
+     * get array list of month โดยค่า $language เริ่มต้น 'th' (ภาษาไทย) นอกนั้นให้เป็น en
+     * @return  array $months
+     */
     public static function listMonth($language = 'th')
     {
-        $month = [];
+        $months = [];
         if ($language == 'th') :
-            $month = [
+            $months = [
                 1 => 'มกราคม',
                 2 => 'กุมภาพันธ์',
                 3 => 'มีนาคม',
@@ -62,13 +78,17 @@ class MyDate
             ];
         else :
             for ($i = 1; $i <= 12; $i++) {
-                $month[$i] = date('F', mktime(0, 0, 0, $i, 10));
+                $months[$i] = date('F', mktime(0, 0, 0, $i, 10));
             }
         endif;
 
-        return $month;
+        return $months;
     }
 
+    /**
+     * get array list of year จากปี $from ถึงปี $to โดยถ้าค่า $BE = true จะได้ปี พ.ศ.
+     * @return  array $years
+     */
     public static function listYear($from = 1970, $to = 0, $BE = true)
     {
         $from = ($from < 1970) ? 1970 : $from;
@@ -76,12 +96,15 @@ class MyDate
         $to = ($to < $from) ? $from : $to;
         $be = ($BE === true) ? 543 : 0;
         for ($i = $from; $i <= $to; $i++) {
-            $year[$i] = ($BE === true) ? $i + $be : $i;
+            $years[$i] = ($BE === true) ? $i + $be : $i;
         }
-        return $year;
+        return $years;
     }
 
-
+    /**
+     * get last date of month  คือคืนว่าว่า ณ ปี/เดือน นั้นจะเป็นวันที่อ่ะไร (ส่วนใหญ่ใช้ตรวจสอบ เดือน กุมภาพันธ์ เพราะบางที 28 บางที 29)
+     * @return  String date
+     */
     public static function lastDateOfMonth($year, $month)
     {
         $date = date_create($year . '-' . $month . '-01');
