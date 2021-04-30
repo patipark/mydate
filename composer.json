@@ -1,0 +1,19 @@
+{
+  "name": "patipark/mydate",
+  "description": "class utility วันที่",
+  "authors": [
+    {
+      "name": "Patipark Sopha",
+      "email": "iamwad@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+        "patipark\\": "src"
+    }
+  }
+}
