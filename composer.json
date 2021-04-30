@@ -1,13 +1,13 @@
 {
   "name": "patipark/mydate",
   "description": "class utility วันที่",
+  "license": "MIT",
   "authors": [
     {
       "name": "Patipark Sopha",
       "email": "iamwad@gmail.com"
     }
   ],
-  "minimum-stability": "stable",
   "require": {
     "php": ">=5.4.0"
   },
