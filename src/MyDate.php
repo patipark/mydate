@@ -54,6 +54,32 @@ class MyDate
         return true;
     }
 
+
+    /**
+     * get array list of day โดยค่า โดยค่าที่เป็นไปได้ 1-31
+     * @return  array $days
+     */
+    public static function listDay()
+    {
+        for ($i = 1; $i <= 31; $i++) {
+            $days[$i] = $i;
+        }
+        return $days;
+    }
+
+    /**
+     * get array list of day โดยค่า โดยค่าที่เป็นไปได้ 1-วันสุดท้ายของเดือน โดยส่งผ่านค่า ปี กับ เดือนเข้าไป(เพื่อหากวันที่สุดท้ายของเดือนนั้น)
+     * @return  array $days
+     */
+    public static function listDateOfMonth($year, $month)
+    {
+        $date = self::lastDateOfMonth($year, $month);
+        for ($i = 1; $i <= date('d', strtotime($date)); $i++) {
+            $days[$i] = $i;
+        }
+        return $days;
+    }
+
     /**
      * get array list of month โดยค่า $language เริ่มต้น 'th' (ภาษาไทย) นอกนั้นให้เป็น en
      * @return  array $months
