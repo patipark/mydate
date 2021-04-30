@@ -8,13 +8,20 @@ namespace patipark;
  */
 class MyDate
 {
-    // const FORMAT_DATE = 'php:Y-m-d';
-    // const FORMAT_DATETIME = 'php:Y-m-d H:i:s';
-    // const FORMAT_TIME = 'php:H:i:s';
+    const FORMAT_DATE = 'php:Y-m-d';
+    const FORMAT_DATETIME = 'php:Y-m-d H:i:s';
+    const FORMAT_TIME = 'php:H:i:s';
 
-    public function init()
+    protected $date;
+
+    public function __construct($date)
     {
-        date_default_timezone_set("Asia/Bangkok");
+        $this->date = new \DateTime($date, new \DateTimeZone('Asia/Bangkok'));
+    }
+
+    public function getTimezone()
+    {
+        return $this->date->getTimezone()->getName();
     }
 
     /**
@@ -54,7 +61,6 @@ class MyDate
         return true;
     }
 
-
     /**
      * get array list of day โดยค่า โดยค่าที่เป็นไปได้ 1-31
      * @return  array $days
@@ -78,6 +84,43 @@ class MyDate
             $days[$i] = $i;
         }
         return $days;
+    }
+
+    /**
+     * get array day of week เป็นภาษาไทย
+     * @return  array $dayOfWeeks
+     */
+    private function getThaiDay($index)
+    {
+        $dayOfWeeks = [
+            'อาทิตย์',
+            'จันทร์',
+            'อังคาร',
+            'พุธ',
+            'พฤหัสบดี',
+            'ศุกร์',
+            'เสาร์',
+            'อาทิตย์'
+        ];
+        return $dayOfWeeks[$index];
+    }
+
+    /**
+     * get month name เป็นภาษาไทย
+     * @return  string $monthName
+     */
+    private function getThaiMonth($index)
+    {
+        return self::listMonth()[$index];
+    }
+
+    /**
+     * get string day of week เป็นภาษาไทย
+     * @return  string $dayOfWeek
+     */
+    public function getdayOfWeek()
+    {
+        return $this->getThaiDay($this->date->format('w'));
     }
 
     /**
@@ -135,5 +178,52 @@ class MyDate
     {
         $date = date_create($year . '-' . $month . '-01');
         return date_format($date, 'Y-m-t H:i:s');
+    }
+
+    /**
+     * get integer day
+     * @return  integer $day
+     */
+    public function getDay()
+    {
+        return $this->date->format('d');
+    }
+
+    /**
+     * get string month name เป็นภาษาไทย
+     * @return  string $monthName
+     */
+    public function getMonth()
+    {
+        return $this->getThaiMonth($this->date->format('n'));
+    }
+
+    /**
+     * get integer year เป็นปี พ.ศ.
+     * @return  string $year
+     */
+    public function getYear()
+    {
+        return intval($this->date->format('Y')) + 543;
+    }
+
+    /**
+     * แทนที่ ชุด string ด้วยข้อความ ที่เป็นภาษาไทย
+     * @return  string $thaiDate
+     */
+    private function replaceFormatToThai($format)
+    {
+        return preg_replace(['/::DDD::/', '/::MMM::/', '/::YYYY::/'], [$this->getdayOfWeek(), $this->getMonth(), $this->getYear()], $format);
+    }
+
+     /**
+     * คืนค่าวันที่ด้วย รูปแบบ ข้อความที่เป็นภาษาไทย
+     * @return  string @newFormat
+     */
+    public function format($format)
+    {
+        return $this->date->format(
+            $this->replaceFormatToThai($format)
+        );
     }
 }
