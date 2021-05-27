@@ -1,6 +1,7 @@
 {
   "name": "patipark/mydate",
   "description": "class utility วันที่",
+  "version": "1.0.0",
   "license": "MIT",
   "authors": [
     {
@@ -9,11 +10,17 @@
     }
   ],
   "require": {
-    "php": ">=5.4.0"
+    "php": "^7.2"
   },
   "autoload": {
     "psr-4": {
-        "patipark\\": "src"
-    }
+      "patipark\\": "src"
+    },
+    "classmap": [
+      "src/"
+    ]
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9"
   }
 }
